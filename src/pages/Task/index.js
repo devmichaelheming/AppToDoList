@@ -6,21 +6,30 @@ import {
     FlatList,
 } from 'react-native'
 
-import database from '../../config/firebaseconfig'
+import firebase from '../../config/firebaseconfig'
 
 import styles from './style'
 import { MaterialIcons } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-export default function Task({navigation}) {
+export default function Task({ navigation, route }) {
     const [task, setTask] = useState([]);
 
+    function logout() {
+        firebase.auth().signOut().then(() => {
+            navigation.navigate("Login");
+        }).catch((error) => {
+
+        }); 
+    }
+
     function deleteTask(id) {
-        database.collection("Tasks").doc(id).delete();
+        firebase.firestore().collection(route.params.idUser).doc(id).delete();
     }
 
     useEffect(() => {
-        database.collection("Tasks").onSnapshot((query)=>{
+        firebase.firestore().collection(route.params.idUser).onSnapshot((query)=>{
             const list = []
             query.forEach((doc)=>{
                 list.push({...doc.data(), id: doc.id})
@@ -43,6 +52,7 @@ export default function Task({navigation}) {
                                     navigation.navigate("Details", {
                                         id: item.id,
                                         description: item.description,
+                                        idUser: route.params.idUser
                                     })
                                 }}
                             >
@@ -66,15 +76,44 @@ export default function Task({navigation}) {
                     )
                 }}
             />
+            {
+                task.length === 0
+                ?
+                    <View style={styles.validateTasks}>
+                        <MaterialCommunityIcons
+                            name="alert-circle"
+                            size={20}
+                            color="#bdbdbd"
+                        />
+                        <Text style={styles.textValidateTasks}>
+                            Não há nenhuma tarefa cadastrada até o momento.
+                        </Text>
+                    </View>
+                :
+                    <View></View>
+
+            }
             <TouchableOpacity style
                 style={styles.buttonNewTask}
-                onPress={() => navigation.navigate("New Task")}
+                onPress={() => navigation.navigate("New Task", { idUser: route.params.idUser })}
             >
                 <Text style={styles.iconButton}>
                     <AntDesign
                         name="plus"
                         size={25}
                         color="#fff"
+                    />
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            style={styles.buttonLogout}
+            onPress={()=>{ logout() }}
+            >
+                <Text style={styles.iconButtonLogout}>
+                    <MaterialCommunityIcons
+                        name="location-exit"
+                        size={23}
+                        color="#F92e6a"
                     />
                 </Text>
             </TouchableOpacity>

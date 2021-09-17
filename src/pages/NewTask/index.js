@@ -4,16 +4,17 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import database from '../../config/firebaseconfig'
 import styles from './style'
+import { Entypo } from '@expo/vector-icons'; 
 
-export default function NewTask({ navigation }) {
+export default function NewTask({ navigation, route }) {
     const [description, setDescription] = useState(null);
 
     function addTask() {
-        database.collection("Tasks").add({
+        database.firestore().collection(route.params.idUser).add({
             description: description,
             status: false,
         });
-        navigation.navigate("Task");
+        navigation.navigate("Task", { idUser: route.params.idUser });
     }
 
     return (
@@ -32,7 +33,11 @@ export default function NewTask({ navigation }) {
                 }}
             >
                 <Text style={styles.iconButton}>
-                    Save
+                    <Entypo
+                        name="save"
+                        size={23}
+                        color="white"
+                    />
                 </Text>
             </TouchableOpacity>
         </View>

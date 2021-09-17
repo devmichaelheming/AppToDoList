@@ -12,6 +12,19 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 5
     },
+    validateTasks: {
+        flex: 1,
+        width: "100%",
+        position: "absolute",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "row"
+    },
+    textValidateTasks: {
+        fontSize: 14,
+        color: "#626262",
+        paddingLeft: 5
+    },
     deleteTask: {
         justifyContent: 'center',
         paddingRight: 10,
@@ -43,6 +56,20 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: "bold",
     },
+    buttonLogout: {
+        width: 60,
+        height: 60,
+        position: "absolute",
+        bottom: 30,
+        right: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    iconButtonLogout: {
+        color: "#FFFFFF",
+        fontSize: 25,
+        fontWeight: "bold",
+    }
 })
 
 export default styles;
