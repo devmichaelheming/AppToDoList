@@ -1,8 +1,5 @@
 # AppToDoList
-Aplicativo para a criação de listas com autenticação
-
-Aplicativo feito em react native, utilizando o expo e o banco de dados do firebase.
-
+Essa aplicação foi desenvolvida com [React-Native](https://reactnative.dev), utilizando o [Expo](https://expo.dev/) e [Firebase](https://firebase.google.com/).
 ## Instalação.
 
 Clone o repositório
