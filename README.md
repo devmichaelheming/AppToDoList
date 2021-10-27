@@ -1,4 +1,4 @@
-# AppToDoList
+# AppToDoList(estudo)
 Essa aplicação foi desenvolvida com [React-Native](https://reactnative.dev), utilizando o [Expo](https://expo.dev/) e [Firebase](https://firebase.google.com/).
 
 > Status: Finalizado ⚠️
